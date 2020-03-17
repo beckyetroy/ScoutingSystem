@@ -19,29 +19,36 @@ public class Division {
      * @param divisionPhone Phone number of the division
      * @param divisionLeader Name of the division leader
      */
-    public Division(String divisionName, String divisionAddress, String divisionEmail, String divisionPhone, String divisionLeader) {
+    public Division(String divisionName, String divisionAddress, String divisionEmail, String divisionPhone, String divisionLeader)
+    {
+        //Validation statement - ensures division name is 40 characters or less
+        if(divisionName.length() < 40 ) {
+            this.divisionName = divisionName;
+        }
+        else {
+            System.out.println("Name must be a maximum of 40 characters.");
+        }
 
-        //Validation statement - ensures division name is 40 characters or less by taking first 40 characters
-        this.divisionName = (divisionName.length()<=40) ? divisionName : divisionName.substring(0,40);
-
-        //Validation statement - ensures the division address is 60 characters or less by taking first 60 characters
-        this.divisionAddress = (divisionAddress.length()<=60) ? divisionAddress : divisionAddress.substring(0,60);
+        //Validation statement - ensures the division address is 60 characters or less
+        if(divisionAddress.length() < 60 ) {
+            this.divisionAddress = divisionAddress;
+        }
+        else {
+            System.out.println("Address must be a maximum of 60 characters");
+        }
 
         //Validation statement - ensures the division e-mail address contains @ and . symbols
-        this.divisionEmail = (divisionEmail.contains("@") && divisionEmail.contains(".") ? divisionEmail : "Invalid email format");
-
-        //Validation statement - ensures the phone number only contains numbers
-        try {
-            Long.parseLong(divisionPhone);
-            this.divisionPhone = divisionPhone;
+        if(divisionEmail.contains("@") && divisionEmail.contains(".")) {
+            this.divisionEmail = divisionEmail;
         }
-        //Stores 'Unknown' if phone number is invalid
-        catch (NumberFormatException ex) {
-            this.divisionPhone = "Unknown";
+        else {
+            divisionEmail = "Invalid email format";
         }
 
-        //Validation statement - ensures division leader's name is 30 characters or less by taking first 30 characters
-        this.divisionLeader = (divisionLeader.length()<=30) ? divisionLeader : divisionLeader.substring(0,30);
+        //TO DO - Validation
+        this.divisionPhone = divisionPhone;
+
+        this.divisionLeader = divisionLeader;
     }
 
     //-------
@@ -90,8 +97,13 @@ public class Division {
      * @param divisionName The new Division Name
      */
     public void setDivisionName(String divisionName) {
-        //Validation statement - ensures division name is 40 characters or less by taking first 40 characters
-        this.divisionName = (divisionName.length()<=40) ? divisionName : divisionName.substring(0,40);
+        //Validation statement - ensures division name is 40 characters or less
+        if(divisionName.length() < 40 ) {
+            this.divisionName = divisionName;
+        }
+        else {
+            System.out.println("Name must be a maximum of 40 characters.");
+        }
     }
 
     /**
@@ -99,8 +111,13 @@ public class Division {
      * @param divisionAddress The new Division Address
      */
     public void setDivisionAddress(String divisionAddress) {
-        //Validation statement - ensures the division address is 60 characters or less by taking first 60 characters
-        this.divisionAddress = (divisionAddress.length()<=60) ? divisionAddress : divisionAddress.substring(0,60);
+        //Validation statement - ensures the division address is 60 characters or less
+        if(divisionAddress.length() < 60 ) {
+            this.divisionAddress = divisionAddress;
+        }
+        else {
+            System.out.println("Address must be a maximum of 60 characters");
+        }
     }
 
     /**
@@ -109,7 +126,12 @@ public class Division {
      */
     public void setDivisionEmail(String divisionEmail) {
         //Validation statement - ensures the division e-mail address contains @ and . symbols
-        this.divisionEmail = (divisionEmail.contains("@") && divisionEmail.contains(".") ? divisionEmail : "Invalid email format");
+        if(divisionEmail.contains("@") && divisionEmail.contains(".")) {
+            this.divisionEmail = divisionEmail;
+        }
+        else {
+            divisionEmail = "Invalid email format";
+        }
     }
 
     /**
@@ -117,15 +139,8 @@ public class Division {
      * @param divisionPhone The new Division Phone Number
      */
     public void setDivisionPhone(String divisionPhone) {
-        //Validation statement - ensures the phone number only contains numbers
-        try {
-            Long.parseLong(divisionPhone);
-            this.divisionPhone = divisionPhone;
-        }
-        //Stores 'Unknown' if phone number is invalid
-        catch (NumberFormatException ex) {
-            this.divisionPhone = "Unknown";
-        }
+        //TO DO - Validation!!!
+        this.divisionPhone = divisionPhone;
     }
 
     /**
@@ -133,8 +148,7 @@ public class Division {
      * @param divisionLeader The new Division Leader
      */
     public void setDivisionLeader(String divisionLeader) {
-        //Validation statement - ensures division leader's name is 30 characters or less by taking first 30 characters
-        this.divisionLeader = (divisionLeader.length()<=30) ? divisionLeader : divisionLeader.substring(0,30);
+        this.divisionLeader = divisionLeader;
     }
 
     //-------
@@ -149,7 +163,7 @@ public class Division {
         return "Scouting Division name= '" + divisionName
                 + "', Address: '" + divisionAddress
                 + "', Phone Number: '" + divisionPhone
-                + "', Division Leader: '" + divisionLeader
-                + "', Email: '" + divisionEmail + "'.";
+                + "', Division Leader: " + divisionLeader
+                + "', Email: '" + divisionEmail + "'";
     }
 }

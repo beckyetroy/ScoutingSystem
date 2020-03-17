@@ -51,9 +51,9 @@ public class ScoutList {
      * Method to remove a Scout object from the Arraylist
      */
     public boolean removeScout(int index) {
-        boolean removed = false;
         //Validation statement - ensures index entered is not empty in the Arraylist
-        if ((index < (scouts.size()) && (index > 0))) {
+        if ((index < (scouts.size()) && (index >= 0))) {
+            scouts.remove(index);
             return true;
         }
         else {
@@ -97,9 +97,10 @@ public class ScoutList {
         else {
             for (int i = 0; i < scouts.size(); i++) {
                 String scout = scouts.get(i).toString();
-
-                if (scout.toUpperCase().contains(String.toUpperCase())) {
-                    result = "Scout details ==> " + scout + "\n";
+                String division = scouts.get(i).getDivision().getDivisionName();
+                //Ensures isn't case-sensitive
+                if (division.toUpperCase().equals(String.toUpperCase())) {
+                    result = result + "Scout details ==> " + i + ": " + scout + "\n";
                 }
                 //If the Arraylist is empty for the parameter passed
                 else {
@@ -113,7 +114,7 @@ public class ScoutList {
     /**
      * Method to build and return a String of all Scout objects in the Arraylist whose gender matches the one passed as parameter
      */
-    public String listScoutsByGender(String String) {
+    public String listScoutsBySpecificGender(String String) {
         String result = new String();
         //If the Arraylist is empty
         if (scouts.size() == 0) {
@@ -123,20 +124,35 @@ public class ScoutList {
             for (int i = 0; i < scouts.size(); i++) {
                 String scout = scouts.get(i).toString();
                 String gender = scouts.get(i).getGender();
-
-                if (gender.toUpperCase().equals(String.toUpperCase())) {
-                    result = "Scout details ==> " + scout + "\n";
-                }
-                //If the Arraylist is empty for the parameter passed
-                else if ((!gender.toUpperCase().equals(String.toUpperCase())) && ((String.toUpperCase().equals("M")) | (String.toUpperCase().equals("F")))) {
-                    result = "There are no scouts of the gender: " + String;
-                }
-                else {
-                    result = "Invalid format. Please enter either (M/F)";
+                    //Ensures isn't case sensitive
+                    if (gender.toUpperCase().equals(String.toUpperCase())) {
+                        result = result + "Scout details ==> " + i + ": " + scout + "\n";
+                    }
+                    //If the Arraylist is empty for the parameter passed
+                    else if ((!gender.toUpperCase().equals(String.toUpperCase())) && ((String.toUpperCase().equals("M")) | (String.toUpperCase().equals("F")))) {
+                        return "There are no scouts of the gender: " + String;
+                    }
+                    else {
+                        return "Invalid format. Please enter either (M/F)";
+                    }
                 }
             }
             return result;
         }
+
+    /**
+     * Method to update a Scout object in the ArrayList
+     */
+    public void updateScout(int index, String Firstname, String Surname, String address, int dayOfBirth, int monthOfBirth, int yearOfBirth, String gender, Division division) {
+        Scout s = scouts.get(index);
+        s.setFirstname(Firstname);
+        s.setSurname(Surname);
+        s.setAddress(address);
+        s.setDayOfBirth(dayOfBirth);
+        s.setMonthOfBirth(monthOfBirth);
+        s.setYearOfBirth(yearOfBirth);
+        s.setGender(gender);
+        s.setDivision(division);
     }
 
     /**
@@ -145,7 +161,7 @@ public class ScoutList {
     public void save() throws Exception
     {
         XStream xstream = new XStream(new DomDriver());
-        ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("divisions.xml"));
+        ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("scouts.xml"));
         out.writeObject(scouts);
         out.close();
     }
@@ -157,7 +173,7 @@ public class ScoutList {
     public void load() throws Exception
     {
         XStream xstream = new XStream(new DomDriver());
-        ObjectInputStream is = xstream.createObjectInputStream(new FileReader("divisions.xml"));
+        ObjectInputStream is = xstream.createObjectInputStream(new FileReader("scouts.xml"));
         scouts = (ArrayList<Scout>) is.readObject();
         is.close();
     }

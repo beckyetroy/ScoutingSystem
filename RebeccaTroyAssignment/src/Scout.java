@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  * A scaled down version of a Scout class
  *
@@ -32,50 +34,36 @@ public class Scout {
      * @param division       Division of scout
      */
     public Scout(String Firstname, String Surname, String address, int dayOfBirth, int monthOfBirth, int yearOfBirth, String gender, Division division) {
-        //Validation statement - ensures first name is 40 characters or less
-        if (Firstname.length() < 41) {
-            this.Firstname = Firstname;
-        }
-        else {
-        }
+        //Validation statement - ensures first name is 40 characters or less by taking first 40 characters
+        this.Firstname = (Firstname.length()<=40) ? Firstname : Firstname.substring(0,40);
 
-        //Validation statement - ensures first name is 40 characters or less
-        if (Surname.length() < 41) {
-            this.Surname = Surname;
-        }
-        else {
-        }
+        //Validation statement - ensures first name is 40 characters or less by taking first 40 characters
+        this.Surname = (Surname.length()<=40) ? Surname : Surname.substring(0,40);
 
-        //Validation statement - ensures first name is 40 characters or less
-        if (address.length() < 51) {
-            this.address = address;
-        }
-        else {
-        }
+        //Validation statement - ensures address is 50 characters or less by taking first 50 characters
+        this.address = (address.length()<=50) ? address : address.substring(0,50);
 
         //Validation statement - ensures day of birth is a valid day of the month between 1-31
-        if ((dayOfBirth > 0) && (dayOfBirth < 32)) {
+        if ((dayOfBirth <= 31) && (dayOfBirth >= 1)) {
             this.dayOfBirth = dayOfBirth;
         }
+        //No value will be stored
         else {
         }
 
         //Validation statement - ensures month of birth is a valid month of the year between 1-12
-        if ((monthOfBirth > 0) && (monthOfBirth < 32)) {
+        if ((monthOfBirth >= 1) && (monthOfBirth <= 12)) {
             this.monthOfBirth = monthOfBirth;
         }
+        //No value will be stored
         else {
         }
 
         this.yearOfBirth = yearOfBirth;
 
-        //Validation statement - ensures gender is one of three options: "m", "f", "unspecified"
-        if ((gender.toUpperCase().equals("M")) | (gender.toUpperCase().equals("F"))) {
-            this.gender = gender;
-        }
-        else {
-            gender = "unspecified";
-        }
+        //Validation statement - ensures gender is one of three options: "M", "F", "Unspecified";
+        List<String> genders = Arrays.asList("M", "F");
+        this.gender = (genders.contains(gender)) ? gender : "Unspecified";
 
         this.division = division;
     }
@@ -147,7 +135,8 @@ public class Scout {
      * @param firstname The new first name
      */
     public void setFirstname(String firstname) {
-        Firstname = firstname;
+        //Validation statement - ensures first name is 40 characters or less by taking first 40 characters
+        this.Firstname = (Firstname.length()<=40) ? Firstname : Firstname.substring(0,40);
     }
 
     /**
@@ -155,7 +144,8 @@ public class Scout {
      * @param surname The new surname
      */
     public void setSurname(String surname) {
-        Surname = surname;
+        //Validation statement - ensures first name is 40 characters or less by taking first 40 characters
+        this.Surname = (Surname.length()<=40) ? Surname : Surname.substring(0,40);
     }
 
     /**
@@ -163,7 +153,8 @@ public class Scout {
      * @param address The new address
      */
     public void setAddress(String address) {
-        this.address = address;
+        //Validation statement - ensures address is 50 characters or less by taking first 50 characters
+        this.address = (address.length()<=50) ? address : address.substring(0,50);
     }
 
     /**
@@ -171,7 +162,13 @@ public class Scout {
      * @param dayOfBirth The new day of birth
      */
     public void setDayOfBirth(int dayOfBirth) {
-        this.dayOfBirth = dayOfBirth;
+        //Validation statement - ensures day of birth is a valid day of the month between 1-31
+        if ((dayOfBirth <= 31) && (dayOfBirth >= 1)) {
+            this.dayOfBirth = dayOfBirth;
+        }
+        //No value will be stored
+        else {
+        }
     }
 
     /**
@@ -179,7 +176,13 @@ public class Scout {
      * @param monthOfBirth The new birth month
      */
     public void setMonthOfBirth(int monthOfBirth) {
-        this.monthOfBirth = monthOfBirth;
+        //Validation statement - ensures month of birth is a valid month of the year between 1-12
+        if ((monthOfBirth >= 1) && (monthOfBirth <= 12)) {
+            this.monthOfBirth = monthOfBirth;
+        }
+        //No value will be stored
+        else {
+        }
     }
 
     /**
@@ -195,7 +198,14 @@ public class Scout {
      * @param gender The new gender
      */
     public void setGender(String gender) {
-        this.gender = gender;
+        //Validation statement - ensures gender is one of three options: "m", "f", "unspecified"
+        if ((gender.toUpperCase().equals("M")) | (gender.toUpperCase().equals("F"))) {
+            this.gender = gender;
+        }
+        else {
+            this.gender = "Unspecified";
+            this.gender = gender;
+        }
     }
 
     /**
@@ -219,6 +229,6 @@ public class Scout {
                 + "', Address: '" + address
                 + "', Date of Birth: '" + dayOfBirth + "/" + monthOfBirth + "/" + yearOfBirth
                 + "', Gender: '" + gender
-                + "', Division: '" + division + "'.";
+                + "', Division: '" + division.getDivisionName() + "'.";
     }
 }

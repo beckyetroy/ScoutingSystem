@@ -38,7 +38,7 @@ public class DivisionList {
      */
     public Division getDivision(int index) {
         //Validation statement - ensures the index entered is not empty in the Arraylist
-        if((index < (divisions.size()) && (index > 0))) {
+        if((index < (divisions.size()) && (index >= 0))) {
             return divisions.get(index);
         }
         else {
@@ -57,9 +57,9 @@ public class DivisionList {
      * Method to remove a Division object from the Arraylist
      */
     public boolean removeDivision(int index) {
-        divisions.remove(index);
         //Validation statement - ensures index entered is not empty in the Arraylist
         if ((index < (divisions.size()) && (index >= 0))) {
+            divisions.remove(index);
             return true;
         }
         else {
@@ -82,6 +82,18 @@ public class DivisionList {
             }
             return listOfDivisions;
         }
+    }
+
+    /**
+     * Method to update a Division object in the ArrayList
+     */
+    public void updateDivision(int index, String divisionName, String divisionAddress, String divisionEmail, String divisionPhone, String divisionLeader) {
+        Division d = divisions.get(index);
+        d.setDivisionName(divisionName);
+        d.setDivisionAddress(divisionAddress);
+        d.setDivisionEmail(divisionEmail);
+        d.setDivisionPhone(divisionPhone);
+        d.setDivisionLeader(divisionLeader);
     }
 
     /**
